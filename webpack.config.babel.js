@@ -8,7 +8,7 @@ import FriendlyErrorsWebpackPlugin from 'friendly-errors-webpack-plugin'
 import DashboardPlugin from 'webpack-dashboard/plugin'
 import merge from 'webpack-merge'
 
-import {devServer, loadCSS} from './webpack.parts'
+import {devServer, loadCSS, extractCSS} from './webpack.parts'
 
 const port = process.env.PORT || '4000'
 const host = process.env.HOST || '0.0.0.0'
@@ -45,12 +45,18 @@ const commonConfig = merge([
       new HtmlWebpackPlugin({title: 'Webpack Demo'}),
     ],
   },
-  loadCSS(),
+  // loadCSS(),
 ])
 
-const productionConfig = merge([])
+const productionConfig = merge([
+  // loadCSS(),
+  extractCSS({
+    use: 'css-loader',
+  }),
+])
 
 const developmentConfig = merge([
+  loadCSS(),
   {
     plugins: [
       new ErrorOverlayPlugin(),
