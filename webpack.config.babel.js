@@ -9,7 +9,7 @@ import DashboardPlugin from 'webpack-dashboard/plugin'
 import merge from 'webpack-merge'
 import glob from 'glob'
 
-import {devServer, loadCSS, extractCSS, purifyCSS} from './webpack.parts'
+import {devServer, loadCSS, extractCSS, purifyCSS, autoprefix} from './webpack.parts'
 
 const port = process.env.PORT || '4000'
 const host = process.env.HOST || '0.0.0.0'
@@ -56,7 +56,7 @@ const commonConfig = merge([
 const productionConfig = merge([
   // loadCSS(),
   extractCSS({
-    use: 'css-loader',
+    use: ['css-loader', autoprefix()],
   }),
   purifyCSS({
     paths: glob.sync(`${PATHS.app}/**/*.js`, {nodir: true}),

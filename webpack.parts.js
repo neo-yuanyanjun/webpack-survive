@@ -66,3 +66,10 @@ export const extractCSS = ({include, exclude, use}) => {
 export const purifyCSS = ({paths}) => ({
   plugins: [new PurifyCSSPlugin({paths})],
 })
+
+export const autoprefix = () => ({
+  loader: 'postcss-loader',
+  options: {
+    plugins: () => [Autoprefixer()],
+  },
+})
