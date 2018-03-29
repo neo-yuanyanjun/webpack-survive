@@ -73,3 +73,19 @@ export const autoprefix = () => ({
     plugins: () => [Autoprefixer()],
   },
 })
+
+export const loadImages = ({include, exclude, options} = {}) => ({
+  module: {
+    rules: [
+      {
+        test: /\.(jpg|png)$/,
+        include,
+        exclude,
+        use: {
+          loader: 'url-loader',
+          options,
+        },
+      },
+    ],
+  },
+})

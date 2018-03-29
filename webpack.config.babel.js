@@ -9,7 +9,7 @@ import DashboardPlugin from 'webpack-dashboard/plugin'
 import merge from 'webpack-merge'
 import glob from 'glob'
 
-import {devServer, loadCSS, extractCSS, purifyCSS, autoprefix} from './webpack.parts'
+import {devServer, loadCSS, extractCSS, purifyCSS, autoprefix, loadImages} from './webpack.parts'
 
 const port = process.env.PORT || '4000'
 const host = process.env.HOST || '0.0.0.0'
@@ -61,6 +61,12 @@ const productionConfig = merge([
   purifyCSS({
     paths: glob.sync(`${PATHS.app}/**/*.js`, {nodir: true}),
   }),
+  loadImages({
+    options: {
+      limit: 15000,
+      name: '[name].[ext]',
+    },
+  }),
 ])
 
 const developmentConfig = merge([
@@ -75,7 +81,8 @@ const developmentConfig = merge([
       new DashboardPlugin({port}),
     ],
   },
-  devServer({host, port})
+  devServer({host, port}),
+  loadImages(),
 ])
 
 export default (mode) => {
