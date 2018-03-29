@@ -8,7 +8,7 @@ import FriendlyErrorsWebpackPlugin from 'friendly-errors-webpack-plugin'
 import DashboardPlugin from 'webpack-dashboard/plugin'
 import merge from 'webpack-merge'
 
-import {devServer} from './webpack.parts'
+import {devServer, loadCSS} from './webpack.parts'
 
 const port = process.env.PORT || '4000'
 const host = process.env.HOST || '0.0.0.0'
@@ -45,6 +45,7 @@ const commonConfig = merge([
       new HtmlWebpackPlugin({title: 'Webpack Demo'}),
     ],
   },
+  loadCSS(),
 ])
 
 const productionConfig = merge([])
