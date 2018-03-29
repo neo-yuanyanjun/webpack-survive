@@ -1,5 +1,6 @@
 import Autoprefixer from 'autoprefixer'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
+import PurifyCSSPlugin from 'purifycss-webpack'
 
 export const devServer = ({host, port} = {}) => ({
   devServer: {
@@ -61,3 +62,7 @@ export const extractCSS = ({include, exclude, use}) => {
     plugins: [plugin],
   };
 }
+
+export const purifyCSS = ({paths}) => ({
+  plugins: [new PurifyCSSPlugin({paths})],
+})

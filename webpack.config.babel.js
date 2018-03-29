@@ -7,11 +7,16 @@ import WebpackNotifierPlugin from 'webpack-notifier'
 import FriendlyErrorsWebpackPlugin from 'friendly-errors-webpack-plugin'
 import DashboardPlugin from 'webpack-dashboard/plugin'
 import merge from 'webpack-merge'
+import glob from 'glob'
 
-import {devServer, loadCSS, extractCSS} from './webpack.parts'
+import {devServer, loadCSS, extractCSS, purifyCSS} from './webpack.parts'
 
 const port = process.env.PORT || '4000'
 const host = process.env.HOST || '0.0.0.0'
+
+const PATHS = {
+  app: path.join(__dirname, 'src')
+}
 
 /**
 export default {
@@ -52,6 +57,9 @@ const productionConfig = merge([
   // loadCSS(),
   extractCSS({
     use: 'css-loader',
+  }),
+  purifyCSS({
+    paths: glob.sync(`${PATHS.app}/**/*.js`, {nodir: true}),
   }),
 ])
 
