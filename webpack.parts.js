@@ -4,6 +4,9 @@ import PurifyCSSPlugin from 'purifycss-webpack'
 import CleanWebpackPlugin from 'clean-webpack-plugin'
 import webpack from 'webpack'
 import GitRevisionPlugin from 'git-revision-webpack-plugin'
+import UglifyWebpackPlugin from 'uglifyjs-webpack-plugin'
+import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin'
+import cssnano from 'cssnano'
 
 export const devServer = ({host, port} = {}) => ({
   devServer: {
@@ -136,6 +139,22 @@ export const attachRevision = () => ({
   plugins: [
     new webpack.BannerPlugin({
       banner: new GitRevisionPlugin().version(),
+    }),
+  ],
+})
+
+export const minifyJavaScript = () => ({
+  optimization: {
+    minimizer: [new UglifyWebpackPlugin({sourceMap: true})],
+  },
+})
+
+export const minifyCSS = ({options}) => ({
+  plugins: [
+    new OptimizeCSSAssetsPlugin({
+      cssProcessor: cssnano,
+      cssProcessorOptions: options,
+      canPrint: false,
     }),
   ],
 })

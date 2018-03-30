@@ -20,6 +20,8 @@ import {
   generateSourceMaps,
   clean,
   attachRevision,
+  minifyJavaScript,
+  minifyCSS,
 } from './webpack.parts'
 
 const port = process.env.PORT || '4000'
@@ -71,6 +73,15 @@ const commonConfig = merge([
 
 const productionConfig = merge([
   clean(PATHS.build),
+  minifyJavaScript(),
+  minifyCSS({
+    options: {
+      discardComments: {
+        removeAll: true,
+      },
+      safe: true,
+    },
+  }),
   // loadCSS(),
   extractCSS({
     use: ['css-loader', autoprefix()],
