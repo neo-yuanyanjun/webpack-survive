@@ -17,6 +17,7 @@ import {
   autoprefix,
   loadImages,
   loadJavaScript,
+  generateSourceMaps,
 } from './webpack.parts'
 
 const port = process.env.PORT || '4000'
@@ -59,6 +60,9 @@ const commonConfig = merge([
     ],
   },
   loadJavaScript({include: PATHS.app}),
+  generateSourceMaps({type: 'source-map'}),
+  // generateSourceMaps({type: 'cheap-module-source-map'}),
+  // generateSourceMaps({type: 'eval'}),
   // loadCSS(),
 ])
 

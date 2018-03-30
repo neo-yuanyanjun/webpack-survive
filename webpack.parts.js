@@ -120,3 +120,7 @@ export const loadJavaScript = ({include, exclude} = {}) => ({
     ],
   },
 })
+
+export const generateSourceMaps = ({type}) => ({
+  devtool: type,
+})
