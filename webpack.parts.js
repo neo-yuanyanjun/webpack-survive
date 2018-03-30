@@ -1,6 +1,9 @@
 import Autoprefixer from 'autoprefixer'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import PurifyCSSPlugin from 'purifycss-webpack'
+import CleanWebpackPlugin from 'clean-webpack-plugin'
+import webpack from 'webpack'
+import GitRevisionPlugin from 'git-revision-webpack-plugin'
 
 export const devServer = ({host, port} = {}) => ({
   devServer: {
@@ -123,4 +126,16 @@ export const loadJavaScript = ({include, exclude} = {}) => ({
 
 export const generateSourceMaps = ({type}) => ({
   devtool: type,
+})
+
+export const clean = path => ({
+  plugins: [new CleanWebpackPlugin([path])],
+})
+
+export const attachRevision = () => ({
+  plugins: [
+    new webpack.BannerPlugin({
+      banner: new GitRevisionPlugin().version(),
+    }),
+  ],
 })

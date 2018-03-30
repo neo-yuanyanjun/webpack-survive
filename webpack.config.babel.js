@@ -18,13 +18,16 @@ import {
   loadImages,
   loadJavaScript,
   generateSourceMaps,
+  clean,
+  attachRevision,
 } from './webpack.parts'
 
 const port = process.env.PORT || '4000'
 const host = process.env.HOST || '0.0.0.0'
 
 const PATHS = {
-  app: path.join(__dirname, 'src')
+  app: path.join(__dirname, 'src'),
+  build: path.join(__dirname, 'dist'),
 }
 
 /**
@@ -67,6 +70,7 @@ const commonConfig = merge([
 ])
 
 const productionConfig = merge([
+  clean(PATHS.build),
   // loadCSS(),
   extractCSS({
     use: ['css-loader', autoprefix()],
@@ -100,6 +104,7 @@ const productionConfig = merge([
       },
     },
   },
+  attachRevision(),
 ])
 
 const developmentConfig = merge([
