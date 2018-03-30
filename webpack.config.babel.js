@@ -1,7 +1,7 @@
 import path from 'path'
 import webpack from 'webpack'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
-import ErrorOverlayPlugin from 'error-overlay-webpack-plugin'
+// import ErrorOverlayPlugin from 'error-overlay-webpack-plugin'
 import CaseSensitivePathsPlugin from 'case-sensitive-paths-webpack-plugin'
 import WebpackNotifierPlugin from 'webpack-notifier'
 import FriendlyErrorsWebpackPlugin from 'friendly-errors-webpack-plugin'
@@ -9,7 +9,15 @@ import DashboardPlugin from 'webpack-dashboard/plugin'
 import merge from 'webpack-merge'
 import glob from 'glob'
 
-import {devServer, loadCSS, extractCSS, purifyCSS, autoprefix, loadImages} from './webpack.parts'
+import {
+  devServer,
+  loadCSS,
+  extractCSS,
+  purifyCSS,
+  autoprefix,
+  loadImages,
+  loadJavaScript,
+} from './webpack.parts'
 
 const port = process.env.PORT || '4000'
 const host = process.env.HOST || '0.0.0.0'
@@ -50,6 +58,7 @@ const commonConfig = merge([
       new HtmlWebpackPlugin({title: 'Webpack Demo'}),
     ],
   },
+  loadJavaScript({include: PATHS.app}),
   // loadCSS(),
 ])
 
@@ -73,7 +82,7 @@ const developmentConfig = merge([
   loadCSS(),
   {
     plugins: [
-      new ErrorOverlayPlugin(),
+      // new ErrorOverlayPlugin(),
       new webpack.WatchIgnorePlugin([path.join(__dirname, "node_modules")]),
       new CaseSensitivePathsPlugin(),
       new WebpackNotifierPlugin(),
@@ -86,6 +95,8 @@ const developmentConfig = merge([
 ])
 
 export default (mode) => {
+  process.env.BABEL_ENV = mode
+
   if (mode === 'production') {
     return merge(commonConfig, productionConfig, {mode})
   }

@@ -107,3 +107,16 @@ export const loadFont = ({options}) => ({
     ],
   }
 })
+
+export const loadJavaScript = ({include, exclude} = {}) => ({
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        include,
+        exclude,
+        loader: 'babel-loader',
+      },
+    ],
+  },
+})
