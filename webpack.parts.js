@@ -89,3 +89,21 @@ export const loadImages = ({include, exclude, options} = {}) => ({
     ],
   },
 })
+
+export const loadFont = ({options}) => ({
+  module: {
+    rules: [
+      {
+        test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,
+        use: 'url-loader',
+        options: {
+          limit: 50000,
+          mimetype: 'application/font-woff',
+          name: './fonts/[name].[ext]',
+          publicPath: '../',
+          ...options,
+        },
+      },
+    ],
+  }
+})
