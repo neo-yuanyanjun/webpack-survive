@@ -1,4 +1,4 @@
-export default (text = 'Hello Wrold2') => {
+export default (text = HELLO) => {
   const ele = document.createElement('div')
   ele.innerHTML = text
   ele.className = 'pure-button'

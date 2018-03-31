@@ -22,6 +22,7 @@ import {
   attachRevision,
   minifyJavaScript,
   minifyCSS,
+  setFreeVariable,
 } from './webpack.parts'
 
 const port = process.env.PORT || '4000'
@@ -69,6 +70,7 @@ const commonConfig = merge([
   // generateSourceMaps({type: 'cheap-module-source-map'}),
   // generateSourceMaps({type: 'eval'}),
   // loadCSS(),
+  setFreeVariable('HELLO', 'hello from config'),
 ])
 
 const productionConfig = merge([

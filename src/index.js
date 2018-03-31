@@ -13,3 +13,5 @@ const img = document.createElement('img')
 img.src = imgSrc
 document.body.appendChild(img)
 bake()
+
+console.log(process.env.NODE_ENV)
